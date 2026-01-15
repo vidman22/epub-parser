@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/vidman22/epub-parser/parser"
+	"github.com/vidman22/epub-parser/internal"
 )
 
 func ParseEpub(path string) (*parser.ParsedBookResult, error) {
