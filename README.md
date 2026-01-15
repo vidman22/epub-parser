@@ -13,3 +13,7 @@ A Go library for parsing EPUB files and converting them to HTML content with emb
 - Filter out unnecessary elements (scripts, styles, SVG)
 
 ## Installation
+
+
+## tag
+git tag -a v0.1.0 -m "version 0.1.0"

@@ -1,7 +1,5 @@
 package parser
 
-import "io"
-
 type ResultMetadata struct {
 	MainId      string
 	Title       string
@@ -18,7 +16,7 @@ type ResultMetadata struct {
 
 type Cover struct {
 	FileName string
-	File     io.Reader
+	File     []byte
 	Ext      string
 }
 

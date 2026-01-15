@@ -81,7 +81,7 @@ func processEpubContent(params Params) ([]Content, Cover, error) {
 	}
 	var cover Cover
 	if likelyCoverHref != "" {
-		coverData, err := readZipFileReader(r, likelyCoverHref)
+		coverData, err := readZipFile(r, likelyCoverHref)
 		if err == nil {
 			filename := filepath.Base(likelyCoverHref)
 			ext := filepath.Ext(filename)
@@ -110,24 +110,6 @@ func readZipFile(r *zip.ReadCloser, filePath string) ([]byte, error) {
 			}
 			defer rc.Close()
 			return io.ReadAll(rc)
-		}
-	}
-	return nil, fmt.Errorf("file %s not found in archive", cleanPath)
-}
-
-func readZipFileReader(r *zip.ReadCloser, filePath string) (io.Reader, error) {
-	cleanPath := filepath.Clean(filePath)
-	if strings.HasPrefix(cleanPath, "..") {
-		return nil, fmt.Errorf("invalid path trying to access parent directory: %s", filePath)
-	}
-
-	for _, f := range r.File {
-		if f.Name == cleanPath {
-			rc, err := f.Open()
-			if err != nil {
-				return nil, fmt.Errorf("failed to open %s: %w", cleanPath, err)
-			}
-			return rc, nil
 		}
 	}
 	return nil, fmt.Errorf("file %s not found in archive", cleanPath)
