@@ -24,7 +24,7 @@ type Params struct {
 }
 
 // contentMap is map[fullContentPath]Title
-func processEpubContent(params Params) ([]Content, string, error) {
+func processEpubContent(params Params) ([]Content, Cover, error) {
 	manifestItems := params.manifestItems
 	rootDir := params.rootDir
 	spineItemRefs := params.spineItemRefs
@@ -79,7 +79,21 @@ func processEpubContent(params Params) ([]Content, string, error) {
 
 		texts = append(texts, Content{Html: stringHtml, Title: Title})
 	}
-	return texts, likelyCoverHref, nil
+	var cover Cover
+	if likelyCoverHref != "" {
+		coverData, err := readZipFileReader(r, likelyCoverHref)
+		if err == nil {
+			filename := filepath.Base(likelyCoverHref)
+			ext := filepath.Ext(filename)
+
+			cover = Cover{
+				FileName: filename,
+				Ext:      ext,
+				File:     coverData,
+			}
+		}
+	}
+	return texts, cover, nil
 }
 
 func readZipFile(r *zip.ReadCloser, filePath string) ([]byte, error) {
@@ -96,6 +110,24 @@ func readZipFile(r *zip.ReadCloser, filePath string) ([]byte, error) {
 			}
 			defer rc.Close()
 			return io.ReadAll(rc)
+		}
+	}
+	return nil, fmt.Errorf("file %s not found in archive", cleanPath)
+}
+
+func readZipFileReader(r *zip.ReadCloser, filePath string) (io.Reader, error) {
+	cleanPath := filepath.Clean(filePath)
+	if strings.HasPrefix(cleanPath, "..") {
+		return nil, fmt.Errorf("invalid path trying to access parent directory: %s", filePath)
+	}
+
+	for _, f := range r.File {
+		if f.Name == cleanPath {
+			rc, err := f.Open()
+			if err != nil {
+				return nil, fmt.Errorf("failed to open %s: %w", cleanPath, err)
+			}
+			return rc, nil
 		}
 	}
 	return nil, fmt.Errorf("file %s not found in archive", cleanPath)

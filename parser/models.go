@@ -1,5 +1,7 @@
 package parser
 
+import "io"
+
 type ResultMetadata struct {
 	MainId      string
 	Title       string
@@ -11,13 +13,13 @@ type ResultMetadata struct {
 	Subject     string
 	Description string
 	Date        string
-	CoverPath   string
+	Cover       Cover
 }
 
 type Cover struct {
-	FileName  string
-	CoverPath string
-	Mimetype  string
+	FileName string
+	File     io.Reader
+	Ext      string
 }
 
 type Content struct {

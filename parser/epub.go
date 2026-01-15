@@ -156,7 +156,7 @@ func OpenBook(reader *zip.ReadCloser) (*ParsedBookResult, error) {
 			}
 			return ""
 		}(),
-		CoverPath: cover,
+		Cover: cover,
 		Publisher: func() string {
 			if md.Publisher != nil && len(*md.Publisher) > 0 {
 				return (*md.Publisher)[0].Text
