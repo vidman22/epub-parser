@@ -22,8 +22,11 @@ go get github.com/vidman22/epub-parser
 This library was inspired by [mathieu-keller/epub-parser](https://github.com/mathieu-keller/epub-parser).
 
 ## tag
-git tag -a v0.1.2 -m "version 0.1.2"
-git push origin v0.1.2
+git tag -a v0.1.3 -m "version 0.1.3"
+git push origin v0.1.3
+
+git tag -a v0.1.3 -m "version 0.1.3"
+git push origin v0.1.3
 
 
 ## License
