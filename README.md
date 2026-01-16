@@ -13,7 +13,18 @@ A Go library for parsing EPUB files and converting them to HTML content with emb
 - Filter out unnecessary elements (scripts, styles, SVG)
 
 ## Installation
+Add the library to your project using go get:
 
+go get github.com/vidman22/epub-parser
+
+## Acknowledgments
+
+This library was inspired by [mathieu-keller/epub-parser](https://github.com/mathieu-keller/epub-parser).
 
 ## tag
-git tag -a v0.1.0 -m "version 0.1.0"
+git tag -a v0.1.2 -m "version 0.1.2"
+git push origin v0.1.2
+
+
+## License
+This project is licensed under the MIT License. See the LICENSE file for details.

@@ -22,3 +22,4 @@ epub-parser
 .vscode/
 *.swp
 *.swo
+main/*

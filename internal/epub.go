@@ -19,8 +19,6 @@ type OPFHeaderDetails struct {
 
 func getLikelyTOC(manifestItems *[]Item, navDir string) (likelyTocPathV2 string, likelyTocPathV3 string) {
 
-	fmt.Println("manifest", manifestItems)
-
 	if manifestItems != nil {
 		items := *manifestItems
 		for _, v := range items {
@@ -99,10 +97,6 @@ func OpenBook(reader *zip.ReadCloser) (*ParsedBookResult, error) {
 
 	default:
 		return nil, fmt.Errorf("%f is not a supported version", ebookVersion)
-	}
-
-	for k, v := range tocMap {
-		fmt.Printf("%s: %s\n", k, v)
 	}
 
 	res, cover, err := processEpubContent(Params{

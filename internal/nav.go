@@ -55,7 +55,8 @@ func ParseNavDoc(fBytes []byte, rootDir string) (map[string]string, error) {
 				// Only add if this href hasn't been seen before
 				if cleanHref != "" {
 					if _, exists := tocMap[cleanHref]; !exists {
-						tocMap[cleanHref] = filepath.Join(rootDir, contentText)
+						fullPath := filepath.Join(rootDir, cleanHref)
+						tocMap[fullPath] = contentText
 					}
 				}
 			}
