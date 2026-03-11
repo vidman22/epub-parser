@@ -20,7 +20,7 @@ func UnzipAndParseEpub(path string) (*parser.ParsedBookResult, error) {
 	}
 	defer r.Close()
 
-	res, err := parser.OpenBook(r)
+	res, err := parser.OpenBook(&r.Reader)
 
 	if err != nil {
 		return nil, err
@@ -29,7 +29,7 @@ func UnzipAndParseEpub(path string) (*parser.ParsedBookResult, error) {
 	return res, nil
 }
 
-func ParseBook(reader *zip.ReadCloser) (*parser.ParsedBookResult, error) {
+func ParseBook(reader *zip.Reader) (*parser.ParsedBookResult, error) {
 
 	res, err := parser.OpenBook(reader)
 

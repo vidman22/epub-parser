@@ -39,7 +39,7 @@ func getLikelyTOC(manifestItems *[]Item, navDir string) (likelyTocPathV2 string,
 }
 
 // OpenBook will open epub2 and epub3 files toc.ncx is epub2 toc.xhtml is epub3
-func OpenBook(reader *zip.ReadCloser) (*ParsedBookResult, error) {
+func OpenBook(reader *zip.Reader) (*ParsedBookResult, error) {
 	book := &Book{ZipReader: reader}
 	err := book.ReadXML("META-INF/container.xml", &book.Container)
 	if err != nil {

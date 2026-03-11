@@ -1,6 +1,7 @@
 package epub
 
 import (
+	"archive/zip"
 	"testing"
 
 	parser "github.com/vidman22/epub-parser/internal"
@@ -22,6 +23,36 @@ func Test_parse_epub_2_0_opf(t *testing.T) {
 	}
 
 	assertv2Titles(t, titles)
+}
+
+func Test_unzipped_epub_3_0_opf(t *testing.T) {
+
+	r, err := zip.OpenReader("./fixtures/drjekyllmrhyde_v3.epub")
+	if err != nil {
+		t.Log(err.Error())
+		t.Fail()
+	}
+	if r == nil {
+		t.Log("reader is nil")
+		t.Fail()
+	}
+
+	defer r.Close()
+
+	book, err := ParseBook(&r.Reader)
+
+	if err != nil {
+		t.Log(err.Error())
+		t.Fail()
+	}
+	assertMetadata(t, book.Metadata)
+
+	var titles []string
+	for _, c := range book.Texts {
+		titles = append(titles, c.Title)
+	}
+
+	assertv3Titles(t, titles)
 }
 
 func Test_parse_epub_3_0_opf(t *testing.T) {

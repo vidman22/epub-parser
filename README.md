@@ -29,3 +29,36 @@ git push origin v0.1.3
 
 ## License
 This project is licensed under the MIT License. See the LICENSE file for details.
+
+## Usage 
+
+```aiignore
+package main
+
+import (
+	"fmt"
+	"log"
+
+	"github.com/vidman22/epub-parser"
+)
+
+func main() {
+	//epub.ParseEpub("/Users/johnvidmar/Downloads/augustine-of-hippo_the-city-of-god_marcus-dods-george-wilson-j-j-smith.epub")
+	book2, err := epub.UnzipAndParseEpub("./fixtures/drjekyllmrhyde_v2.epub")
+	//book3, err := epub.ParseEpub("./fixtures/drjekyllmrhyde_v3.epub")
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var titles []string
+	for _, c := range book2.Texts {
+		titles = append(titles, c.Title)
+	}
+	fmt.Println(titles)
+	fmt.Println(book2.Metadata.Title)
+	//fmt.Println(book3.Metadata.Title)
+	//epub.ParseEpub("../fixtures/drjekyllmrhyde_v2.epub")
+}
+
+```

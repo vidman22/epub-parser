@@ -20,7 +20,7 @@ type Params struct {
 	spineItemRefs []Itemref
 	tocMap        map[string]string
 	title         string
-	r             *zip.ReadCloser
+	r             *zip.Reader
 }
 
 // contentMap is map[fullContentPath]Title
@@ -96,7 +96,7 @@ func processEpubContent(params Params) ([]Content, Cover, error) {
 	return texts, cover, nil
 }
 
-func readZipFile(r *zip.ReadCloser, filePath string) ([]byte, error) {
+func readZipFile(r *zip.Reader, filePath string) ([]byte, error) {
 	cleanPath := filepath.Clean(filePath)
 	if strings.HasPrefix(cleanPath, "..") {
 		return nil, fmt.Errorf("invalid path trying to access parent directory: %s", filePath)
@@ -115,7 +115,7 @@ func readZipFile(r *zip.ReadCloser, filePath string) ([]byte, error) {
 	return nil, fmt.Errorf("file %s not found in archive", cleanPath)
 }
 
-func extractRawHTML(n *html.Node, w io.StringWriter, r *zip.ReadCloser, contentFilePath string, manifestHrefMap map[string]Item) string {
+func extractRawHTML(n *html.Node, w io.StringWriter, r *zip.Reader, contentFilePath string, manifestHrefMap map[string]Item) string {
 	var findBodyAndExtract func(*html.Node)
 	foundBody := false
 	isFirstChild := false
@@ -149,7 +149,7 @@ func extractRawHTML(n *html.Node, w io.StringWriter, r *zip.ReadCloser, contentF
 	return firstText
 }
 
-func renderNodeRaw(isFirstChild bool, n *html.Node, w io.StringWriter, r *zip.ReadCloser, contentFilePath string, manifestHrefMap map[string]Item) string {
+func renderNodeRaw(isFirstChild bool, n *html.Node, w io.StringWriter, r *zip.Reader, contentFilePath string, manifestHrefMap map[string]Item) string {
 	switch n.Type {
 	case html.TextNode:
 		w.WriteString(n.Data)

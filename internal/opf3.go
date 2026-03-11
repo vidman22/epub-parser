@@ -23,7 +23,7 @@ type Book struct {
 	Manifest  Manifest
 	Container Container
 	Spine     Spine
-	ZipReader *zip.ReadCloser
+	ZipReader *zip.Reader
 }
 
 func (book *Book) ReadXML(fileName string, targetStruct interface{}) error {
