@@ -8,7 +8,7 @@ import (
 	"github.com/vidman22/epub-parser/internal"
 )
 
-func ParseEpub(path string) (*parser.ParsedBookResult, error) {
+func UnzipAndParseEpub(path string) (*parser.ParsedBookResult, error) {
 	_, err := os.Stat(path)
 	if os.IsNotExist(err) {
 		return nil, err
@@ -21,6 +21,17 @@ func ParseEpub(path string) (*parser.ParsedBookResult, error) {
 	defer r.Close()
 
 	res, err := parser.OpenBook(r)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return res, nil
+}
+
+func ParseBook(reader *zip.ReadCloser) (*parser.ParsedBookResult, error) {
+
+	res, err := parser.OpenBook(reader)
 
 	if err != nil {
 		return nil, err

@@ -8,7 +8,7 @@ import (
 
 func Test_parse_epub_2_0_opf(t *testing.T) {
 
-	book, err := ParseEpub("./fixtures/drjekyllmrhyde_v2.epub")
+	book, err := UnzipAndParseEpub("./fixtures/drjekyllmrhyde_v2.epub")
 	if err != nil {
 		t.Log(err.Error())
 		t.Fail()
@@ -26,7 +26,7 @@ func Test_parse_epub_2_0_opf(t *testing.T) {
 
 func Test_parse_epub_3_0_opf(t *testing.T) {
 
-	book, err := ParseEpub("./fixtures/drjekyllmrhyde_v3.epub")
+	book, err := UnzipAndParseEpub("./fixtures/drjekyllmrhyde_v3.epub")
 
 	if err != nil {
 		t.Log(err.Error())
