@@ -71,7 +71,7 @@ func processEpubContent(params Params) ([]Content, Cover, error) {
 		}
 
 		possibleTitle := extractRawHTML(doc, &combinedHTML, r, contentFilePath, manifestHrefMap)
-		combinedHTML.WriteString("\n<br></br>\n")
+		combinedHTML.WriteString("\n")
 		stringHtml := combinedHTML.String()
 		if Title == "" {
 			Title = possibleTitle[0:int(math.Min(float64(len(possibleTitle)), 50))]

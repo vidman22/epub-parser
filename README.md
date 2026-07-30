@@ -23,8 +23,8 @@ This library was inspired by [mathieu-keller/epub-parser](https://github.com/mat
 
 ## tag
 
-git tag -a v0.1.6 -m "version 0.1.6" \n
-git push origin v0.1.6
+git tag -a v0.1.8 -m "version 0.1.8" \n
+git push origin v0.1.8
 
 ## License
 This project is licensed under the MIT License. See the LICENSE file for details.
